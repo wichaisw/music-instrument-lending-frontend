@@ -12,7 +12,7 @@ export const store = configureStore({
 })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
-// setupListeners(store.dispatch);
+setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
