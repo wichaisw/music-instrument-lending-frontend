@@ -1,5 +1,4 @@
 import React, { Component, ErrorInfo, ReactNode } from "react";
-import Layout from './Layout';
 
 interface Props {
   children: ReactNode;
@@ -25,11 +24,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return (
-        <Layout>
-          <h1>Unexpected Error Occurred</h1>
-        </Layout>
-      )
+      return <h1>Unexpected Error Occurred</h1>
     }
 
     return this.props.children;
