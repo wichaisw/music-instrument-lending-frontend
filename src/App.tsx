@@ -16,14 +16,11 @@ const App: React.FC = () => {
     <Layout>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route 
-          path='/admin/product/create'
-          element={
-            <RequireAuth redirectTo='/'>
-              <ProductCreate />
-            </RequireAuth>
-          }
-        />
+        <Route path='admin/'>
+          <Route index={true} element={<Navigate to="/" />} />
+          <Route path='product/create' element={<ProductCreate />} />
+        </Route>
+
         <Route 
           path='*'
           element={<Navigate to="/" />}
