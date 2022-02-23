@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { IInstrument } from '../../interfaces/instrument';
+import { IInstrument } from '../interfaces/instrument';
 import { buttonStyle } from '../utils/button-style';
 import Button from '../components/Button';
 import { usePostInstrumentMutation } from '../services/instruments';

@@ -4,6 +4,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 const rtkErrorHelper = (error: FetchBaseQueryError | SerializedError) => {
   if ('status' in error) {
     console.log('FetchBaseQueryError');
+    console.log(error);
     const errMsg = 'error' in error ? error.error : JSON.stringify(error.data)
 
     return (

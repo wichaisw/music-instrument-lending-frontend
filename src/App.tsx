@@ -1,16 +1,14 @@
 import React,{ Suspense, lazy } from 'react';
 import Layout from './components/Layout';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorBoundary';
-
-function RequireAuth({ children, redirectTo }: any) {
-  let isAuthenticated = true;
-  return isAuthenticated ? children : <Navigate to={redirectTo} />;
-}
+// import AdminRoutes from './components/PrivateRoutes/AdminRoutes';
 
 const Home = lazy(() => import('./pages/Home'));
+const AdminRoutes = lazy(() => import('./components/PrivateRoutes/AdminRoutes'));
 const ProductCreate = lazy(() => import('./pages/ProductCreate'));
+const ProductEdit = lazy(() => import('./pages/ProductEdit'));
 
 const App: React.FC = () => {
 
@@ -20,10 +18,16 @@ const App: React.FC = () => {
         <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path='/' element={<Home />} />
+
+            {/* admin restricted routes */}
             <Route path='admin/'>
-              <Route index={true} element={<Navigate to="/" />} />
-              <Route path='product/create' element={<ProductCreate />} />
+              <Route element={<AdminRoutes />}>
+                <Route index={true} element={<Navigate to="/" />} />
+                <Route path='product/create' element={<ProductCreate />} />
+                <Route path='product/edit/:productId' element={<ProductEdit />} />
+              </Route>
             </Route>
+
             <Route 
               path='*'
               element={<Navigate to="/" />}

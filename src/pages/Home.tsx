@@ -9,13 +9,8 @@ const Home: React.FC = () => {
   return (
       <main>
         {(() => {
-          if (isLoading) {
-            return <Spinner />
-          }
-
-          if (error) {
-            return rtkErrorHelper(error);
-          }
+          if (isLoading) return <Spinner />
+          if (error) return rtkErrorHelper(error);
 
           if(data) {
             return (
@@ -37,30 +32,6 @@ const Home: React.FC = () => {
           }
         })()}
       </main>
-    // <main>
-    //   {(() => {
-    //     if(error) return <>{error}</>
-    //     if(isLoading) return <>{isLoading}</>
-    //     if(data) {
-    //       return (
-    //         <main>
-    //           {data.map((instrument, index) => {
-    //             // TODO product card
-    //             return (
-    //               <div key={instrument.id}>
-    //                 {instrument.name}
-    //                 {instrument.type}
-    //                 {instrument.brand}
-    //                 {instrument.price}
-    //                 {instrument.info}
-    //               </div>
-    //             )
-    //           })}
-    //         </main>
-    //       )
-    //     }
-    //   })() }
-    // </main>
   );
 }
 

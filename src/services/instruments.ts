@@ -1,5 +1,5 @@
 import { baseSplitApi } from "./baseApi";
-import { IInstrument } from '../../interfaces/instrument'
+import { IInstrument } from '../interfaces/instrument'
 
 export const instrumentApi = baseSplitApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,7 +7,10 @@ export const instrumentApi = baseSplitApi.injectEndpoints({
       query: () => 'products',
     }),
     getInstrumentById: builder.query<IInstrument, number>({
-      query: (id: number) => `products/${id}`,
+      query: (id: number) => {
+        console.log('currentId: ', id)
+        return `products/${id}`
+      },
     }),
     postInstrument: builder.mutation<IInstrument, IInstrument>({
       query: (body: IInstrument) => ({
