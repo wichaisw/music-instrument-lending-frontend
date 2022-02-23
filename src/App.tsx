@@ -20,12 +20,10 @@ const App: React.FC = () => {
             <Route path='/' element={<Home />} />
 
             {/* admin restricted routes */}
-            <Route path='admin/'>
-              <Route element={<AdminRoutes />}>
-                <Route index={true} element={<Navigate to="/" />} />
-                <Route path='product/create' element={<ProductCreate />} />
-                <Route path='product/edit/:productId' element={<ProductEdit />} />
-              </Route>
+            <Route path='admin' element={<AdminRoutes />}>
+              <Route index element={<Navigate to="/" />} />
+              <Route path='product/create' element={<ProductCreate />} />
+              <Route path='product/edit/:productId' element={<ProductEdit />} />
             </Route>
 
             <Route 
@@ -36,7 +34,7 @@ const App: React.FC = () => {
         </Suspense>
       </ErrorBoundary>
     </Layout>
-  );
+  )
 }
 
 export default App;

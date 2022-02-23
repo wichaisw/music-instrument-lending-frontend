@@ -5,7 +5,7 @@ const UserRoutes: React.FC = () => {
   let isAdmin: boolean = true;
   return (
       <>
-          {isAdmin ? <Outlet  /> : <Navigate to="/" />};
+          {isAdmin ? <Outlet  /> : <Navigate to="/" />}
       </>
   )
 }

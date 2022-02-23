@@ -2,10 +2,10 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const AdminRoutes: React.FC = () => {
   // TODO auth logic
-  let isAdmin: boolean = false;
+  let isAdmin: boolean = true;
   return (
       <>
-          {isAdmin ? <Outlet  /> : <Navigate to="/" />};
+          {isAdmin ? <Outlet  /> : <Navigate to="/" />}
       </>
   )
 }
