@@ -5,23 +5,38 @@ import { IInstrument } from '../interfaces/instrument';
 import { buttonStyle } from '../utils/button-style';
 import Button from '../components/Button';
 import { usePostInstrumentMutation } from '../services/instruments';
+import Spinner from '../components/Spinner';
+import toast, { Toaster } from 'react-hot-toast';
+
+const notify = () => toast('Here is your toast.');
 
 const ProductCreate: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<IInstrument>({ criteriaMode: "all" });
-  const [createInstrument, result] = usePostInstrumentMutation();
+  const [createInstrument, { isLoading, isError, isSuccess }] = usePostInstrumentMutation();
   
   const onSubmit = handleSubmit(async (data: IInstrument) => {
     try {
       const res = await createInstrument(data);
-
-      console.log(res);
-    } catch (error) {
-      console.error(error)
+      if(isError) toast('test')
+      // console.log(res);
+    } catch (error: any) {
+      toast('error! ')
+      // toast(error?.message as string);
+      // toast(error?.error.error as string);
+      // console.log('isError', isError);
+      // console.error(error)
     }
   });
 
+
+
   return (
     <main className='flex flex-col p-4 w-full md:items-center md:pr-40'>
+            {/* ANCHOR Toaster */}
+            <Toaster
+        position="bottom-right"
+      />
+
       <form className="w-full max-w-md" onSubmit={onSubmit}>
 
         {/* ANCHOR Name */}
@@ -202,12 +217,9 @@ const ProductCreate: React.FC = () => {
             <Button 
               style={buttonStyle.orange}
               onClick={() => {
-                // setValue("lastName", "luo"); // ✅
-                // setValue("firstName", true); // ❌: true is not string
-                // errors.bill; // ❌: property bill does not exist
               }}
             >
-              Create
+              {isLoading ? < Spinner /> : 'Create'} 
             </Button>
           </div>
         </div>
