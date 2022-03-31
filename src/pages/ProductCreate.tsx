@@ -6,37 +6,25 @@ import { buttonStyle } from '../utils/button-style';
 import Button from '../components/Button';
 import { usePostInstrumentMutation } from '../services/instruments';
 import Spinner from '../components/Spinner';
-import toast, { Toaster } from 'react-hot-toast';
-
-const notify = () => toast('Here is your toast.');
+import { rtkErrorHelper } from '../services/rtkErrorHelper';
+import toast from 'react-hot-toast';
 
 const ProductCreate: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<IInstrument>({ criteriaMode: "all" });
-  const [createInstrument, { isLoading, isError, isSuccess }] = usePostInstrumentMutation();
+  const [createInstrument, { isLoading, isError, isSuccess, error }] = usePostInstrumentMutation();
   
   const onSubmit = handleSubmit(async (data: IInstrument) => {
     try {
-      const res = await createInstrument(data);
-      if(isError) toast('test')
-      // console.log(res);
-    } catch (error: any) {
-      toast('error! ')
-      // toast(error?.message as string);
-      // toast(error?.error.error as string);
-      // console.log('isError', isError);
-      // console.error(error)
+      const res = await createInstrument(data)
+        .unwrap();
+      if(isSuccess) toast.success('Success');
+    } catch (err: any) {
+      rtkErrorHelper(err);
     }
   });
 
-
-
   return (
     <main className='flex flex-col p-4 w-full md:items-center md:pr-40'>
-            {/* ANCHOR Toaster */}
-            <Toaster
-        position="bottom-right"
-      />
-
       <form className="w-full max-w-md" onSubmit={onSubmit}>
 
         {/* ANCHOR Name */}
